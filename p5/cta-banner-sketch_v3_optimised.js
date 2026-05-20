@@ -21,6 +21,9 @@ new p5(function (p) {
     let isVisible = false;
     let observer;
 
+    let isMobile = window.innerWidth <= 768;
+    let deviceGamma = 0, deviceBeta = 0, hasOrientation = false;
+
     p.preload = function () {
         img = p.loadImage("assets/img/photo_cta_banner.jpg");
     };
@@ -63,6 +66,28 @@ new p5(function (p) {
         p.frameRate(30);
         p.noStroke();
         p.noLoop();
+
+        if (isMobile) {
+            function handleOrientation(e) {
+                if (e.gamma !== null) {
+                    deviceGamma = e.gamma;
+                    deviceBeta = e.beta;
+                    hasOrientation = true;
+                }
+            }
+            if (typeof DeviceOrientationEvent !== 'undefined' &&
+                typeof DeviceOrientationEvent.requestPermission === 'function') {
+                // iOS 13+: request on first touch
+                document.addEventListener('touchstart', function reqPerm() {
+                    DeviceOrientationEvent.requestPermission()
+                        .then(s => { if (s === 'granted') window.addEventListener('deviceorientation', handleOrientation); })
+                        .catch(() => {});
+                    document.removeEventListener('touchstart', reqPerm);
+                }, { once: true });
+            } else if (window.DeviceOrientationEvent) {
+                window.addEventListener('deviceorientation', handleOrientation, { passive: true });
+            }
+        }
     };
 
     function buildPositions() {
@@ -94,8 +119,19 @@ new p5(function (p) {
         let phase = p.frameCount * 0.02;
 
         // Tilt
-        let rotY = (p.mouseX / p.width * 2 - 1) * tiltStrength;
-        let rotX = (1 - p.mouseY / p.height * 2) * tiltStrength;
+        let rotY, rotX;
+        if (!isMobile) {
+            rotY = (p.mouseX / p.width * 2 - 1) * tiltStrength;
+            rotX = (1 - p.mouseY / p.height * 2) * tiltStrength;
+        } else if (hasOrientation) {
+            rotY = p.constrain(deviceGamma / 45, -1, 1) * tiltStrength;
+            rotX = p.constrain((deviceBeta - 60) / 45, -1, 1) * tiltStrength;
+        } else {
+            // Auto-simulate cursor-following tilt so z-depth is always visible
+            let t = p.frameCount * 0.008;
+            rotY = p.sin(t) * tiltStrength;
+            rotX = p.sin(t * 0.7 + 1.0) * tiltStrength * 0.6;
+        }
         p.rotateX(rotX);
         p.rotateY(rotY);
 

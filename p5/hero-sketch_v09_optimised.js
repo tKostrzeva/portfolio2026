@@ -7,6 +7,7 @@ var imgs = [];
 
 let tilesX = (window.innerWidth <= 768) ? 70 : 120;
 let tilesY;
+let imgScale = (window.innerWidth <= 768) ? 0.60 : 1.0;
 
 let maps = [];
 let fromMap = [];
@@ -40,19 +41,23 @@ function easeInOut(t) {
 }
 
 function buildMap(img) {
-    img.resize(0, tilesY);
+    img.resize(0, round(tilesY * imgScale));
     img.loadPixels();
     let startX = round(tilesX * blobCX - img.width / 2);
+    let startY = (window.innerWidth <= 768) ? round(tilesY * 0.42 - img.height / 2) : 0;
     let m = [];
     for (let x = 0; x < tilesX; x++) {
         m[x] = new Float32Array(tilesY);
         let imgX = x - startX;
         if (imgX >= 0 && imgX < img.width) {
             for (let y = 0; y < tilesY; y++) {
-                let i4 = 4 * (y * img.width + imgX);
-                m[x][y] = (img.pixels[i4] * 0.299 +
-                    img.pixels[i4 + 1] * 0.587 +
-                    img.pixels[i4 + 2] * 0.114) / 255;
+                let imgY = y - startY;
+                if (imgY >= 0 && imgY < img.height) {
+                    let i4 = 4 * (imgY * img.width + imgX);
+                    m[x][y] = (img.pixels[i4] * 0.299 +
+                        img.pixels[i4 + 1] * 0.587 +
+                        img.pixels[i4 + 2] * 0.114) / 255;
+                }
             }
         }
     }
@@ -144,7 +149,8 @@ function draw() {
     fill("#006FFF");
     translate(mX, mY);
     let ellipseX = (windowWidth <= 768) ? windowWidth / 2 : windowWidth / 3;
-    ellipse(ellipseX, (windowHeight / 4), 289, 289);
+    let ellipseY = (windowWidth <= 768) ? windowHeight * 0.42 : windowHeight / 4;
+    ellipse(ellipseX, ellipseY, 289, 289);
     pop();
 
     // Advance transition
@@ -176,8 +182,8 @@ function draw() {
 
     pop();
 
-    // Stop loop when idle (transition done + mouse still)
-    if (!animating && mouseX === lastMouseX && mouseY === lastMouseY) {
+    // Stop loop when idle (transition done + mouse still) — desktop only
+    if (window.innerWidth > 768 && !animating && mouseX === lastMouseX && mouseY === lastMouseY) {
         noLoop();
     }
     lastMouseX = mouseX;
@@ -193,6 +199,7 @@ function windowResized() {
     resizeCanvas(heroSlab.offsetWidth, heroSlab.offsetHeight);
     tilesX = (window.innerWidth <= 768) ? 70 : 120;
     tilesY = round(tilesX * height / width);
+    imgScale = (window.innerWidth <= 768) ? 0.60 : 1.0;
     blobCX = (window.innerWidth <= 768) ? 0.5 : 0.33;
     for (let i = 0; i < 4; i++) {
         maps[i] = buildMap(imgs[i]);
