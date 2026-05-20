@@ -402,8 +402,8 @@ h3 {
     z-index: 1;
     width: 100%;
     background-color: var(--gray-1);
-    padding-top: 40px;
     padding-bottom: 40px;
+    margin-top: 40px;
 }
 
 /***********************************/
@@ -604,11 +604,33 @@ footer {
     color: var(--gray-6);
 }
 
-.footer-label   { grid-column: 2 / span 1; }
-.footer-contact { grid-column: 3 / span 2; }
-.footer-id      { grid-column: 5 / span 2; }
-.footer-copy    { grid-column: 7 / span 1; }
-.footer-rights  { grid-column: 8 / span 1; }
+.footer-label {
+    grid-column: 2 / span 1;
+}
+
+.footer-contact {
+    grid-column: 3 / span 2;
+}
+
+.footer-id {
+    grid-column: 5 / span 2;
+}
+
+.footer-copy {
+    grid-column: 7 / span 1;
+}
+
+.footer-rights {
+    grid-column: 8 / span 1;
+}
+
+/***********************************/
+/*      Hero scroll arrow          */
+/***********************************/
+.hero-scroll-arrow {
+    display: none;
+    color: var(--accent);
+}
 
 /***********************************/
 /*        Mobile nav (mnav)        */
@@ -671,9 +693,8 @@ footer {
         border: 0;
         padding: 0;
         cursor: pointer;
-        display: flex;
-        flex-direction: column;
-        align-items: flex-end;
+        display: block;
+        text-align: right;
         color: var(--gray-5);
         font-family: inherit;
         font-weight: 300;
@@ -695,6 +716,10 @@ footer {
         font-family: "Geist Mono", monospace;
         font-weight: 200;
         font-size: 16px;
+    }
+
+    .mnav:not(.is-open) .mnav-arrow {
+        transform: translateX(8px); /* nudge closed-state arrow right — adjust this value */
     }
 
     .mnav-panel {
@@ -763,6 +788,7 @@ footer {
         padding-left: 20px;
         padding-right: 20px;
         padding-top: 72px;
+        padding-bottom: 40px;
     }
 
     .spacer-s {
@@ -784,15 +810,12 @@ footer {
 
     /* Hero slab */
     .hero-slab {
-        height: 50vh;
+        position: relative;
+        height: 100vh;
         border: none;
     }
 
     .hero-slab--short {
-        height: 80px;
-    }
-
-    .hero-slab.is-shrunk {
         height: 0;
     }
 
@@ -803,10 +826,7 @@ footer {
     }
 
     .hero-intro {
-        grid-column: 1 / -1;
-        grid-row: auto;
-        height: calc(50vh - 72px);
-        border: none;
+        display: none;
     }
 
     .hero-content {
@@ -823,6 +843,16 @@ footer {
         border: none;
     }
 
+    /* Hero scroll arrow */
+    .hero-scroll-arrow {
+        display: block;
+        color: var(--accent);
+        font-family: "Geist Mono", monospace;
+        font-weight: 200;
+        font-size: 24px;
+        margin-top: 24px;
+    }
+
     /* Section title */
     .section-title {
         padding-top: 16px;
@@ -830,14 +860,14 @@ footer {
     }
 
     .section-title--home {
-        padding-top: 80px;
+        padding-top: 40px;
     }
 
     /* Cards — aspect-ratio: portrait 3:4, gap: 24px */
     .card {
         height: auto;
         aspect-ratio: 3 / 4;
-        margin-bottom: 24px;
+        margin-bottom: 0;
     }
 
     .card--half {
@@ -847,17 +877,27 @@ footer {
 
     /* Spacers */
     .spacer-m {
-        height: 24px;
+        display: none;
+    }
+
+    .spacer-l {
+        display: none;
     }
 
     .spacer-xl {
         height: 80px;
     }
 
-    /* Tools section — padding: top/bottom, container padding-top, button margin-bottom */
+    /* CTA button margins */
+    .button {
+        margin-top: 40px;
+        margin-bottom: 0;
+    }
+
+    /* Tools section */
     .tools-section {
-        padding-top: 0;
-        padding-bottom: 0;
+        padding-top: 40px;
+        padding-bottom: 40px;
     }
 
     .tools-section .container {
@@ -865,7 +905,7 @@ footer {
     }
 
     .tools-section .button {
-        margin-bottom: 40px;
+        margin-bottom: 0;
     }
 
     /* CTA section */
@@ -880,7 +920,11 @@ footer {
 
     /* About page */
     .about-heading {
-        margin-top: 48px;
+        margin-top: 20px;
+    }
+
+    .about-text {
+        margin-top: 20px;
     }
 
     .about-services {
@@ -915,7 +959,7 @@ footer {
         row-gap: 16px;
     }
 
-    .footer-grid > * {
+    .footer-grid>* {
         grid-column: 1 / -1;
     }
 }
