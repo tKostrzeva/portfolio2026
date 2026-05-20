@@ -811,7 +811,7 @@ footer {
     /* Hero slab */
     .hero-slab {
         position: relative;
-        height: 100vh;
+        height: 100svh;
         border: none;
     }
 
