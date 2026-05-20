@@ -31,11 +31,11 @@
                 <!-- <li><a href="contact.html">Contact</a></li> -->
                 <!-- <li><a href="https://versa-1.com">Shop</a></li> -->
             </ul>
-            <ul class="mnav-social">
+  <!--           <ul class="mnav-social">
                 <li><a href="https://www.linkedin.com/in/tomaskostrzeva/" target="_blank" rel="noopener">LinkedIn</a>
                 </li>
                 <li><a href="https://www.instagram.com/t.kostrzeva/" target="_blank" rel="noopener">Instagram</a></li>
-            </ul>
+            </ul> -->
         </div>
     </nav>
 
@@ -51,6 +51,7 @@
                 through flexible systems, custom generative tools
                 and interactive experiences.
             </p>
+            <span class="hero-scroll-arrow font-mono">↓</span>
             <!-- <p class="font-sans t-copy-m col-6-2">
                 I design brand identities that live beyond the style guide –
                 <br>
@@ -166,6 +167,7 @@
         </div>
     </section>
 
+
     <section class="cta-section">
         <div class="container">
 
@@ -183,7 +185,8 @@
                     experiences that move your projects forward.
                 </p>
 
-                <a class="button cta-button font-mono t-copy-s" href="mailto:tomas.kostrzeva@gmail.com?subject=Collaboration">
+                <a class="button cta-button font-mono t-copy-s"
+                    href="mailto:tomas.kostrzeva@gmail.com?subject=Collaboration">
                     Let's build ->
                 </a>
             </div>
@@ -228,7 +231,7 @@
         const railShortH = shortH - 44; // minus padding
 
         window.addEventListener('scroll', () => {
-            const scrolled = window.scrollY > 150;
+            const scrolled = window.innerWidth > 768 && window.scrollY > 150;
             heroSlab.classList.toggle('is-shrunk', scrolled);
             if (railTrack) {
                 railTrack.style.height = scrolled ? railShortH + 'px' : '';
