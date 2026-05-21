@@ -87,13 +87,11 @@
 .spacer-xl { height: 160px; }
 
 /***********************************/
-/*   Mobile image position (card)  */
+/*     Image position (card)       */
 /***********************************/
-@media (max-width: 768px) {
-    .m-img-left .card-img   { object-position: left center; }
-    .m-img-center .card-img { object-position: center; }
-    .m-img-right .card-img  { object-position: right center; }
-}
+.img-pos-left .card-img   { object-position: left center; }
+.img-pos-center .card-img { object-position: center; }
+.img-pos-right .card-img  { object-position: right center; }
 
 /***********************************/
 /*        Color utilities          */

@@ -325,11 +325,12 @@ h3 {
     z-index: 5;
     padding: 0;
     margin: 0;
+    /* object-position: left center;  */
 }
 
 .card-overlay {
     position: absolute;
-    width: 150px;
+    width: 250px;
     top: 24px;
     left: 24px;
     z-index: 10;
