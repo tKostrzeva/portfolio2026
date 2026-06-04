@@ -99,3 +99,7 @@
 .muted {
     color: var(--gray-4);
 }
+
+.rounded {
+    border-radius: 16px;
+}
