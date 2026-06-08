@@ -882,11 +882,11 @@ footer {
     }
 
     .spacer-l {
-        display: none;
+        display: block;
     }
 
     .spacer-xl {
-        height: 80px;
+        display: block;
     }
 
     /* CTA button margins */

@@ -88,6 +88,13 @@
 .spacer-l { height: 80px; }
 .spacer-xl { height: 160px; }
 
+@media (max-width: 768px) {
+    .spacer-s  { height: 12px; }
+    .spacer-m  { height: 24px; }
+    .spacer-l  { height: 48px; }
+    .spacer-xl { height: 80px; }
+}
+
 /***********************************/
 /*     Image position (card)       */
 /***********************************/
@@ -103,5 +110,5 @@
 }
 
 .rounded {
-    border-radius: 16px;
+    border-radius: clamp(8px, 1.5vw, 16px);
 }
