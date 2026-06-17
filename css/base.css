@@ -1,5 +1,5 @@
 @import url('tokens.css');
-@import url('utilities.css');
+@import url('utilities.css?v=3');
 
 /***********************************/
 /*            Reset                */
@@ -466,8 +466,7 @@ h3 {
 
 .img-semi {
     width: 100%;
-    aspect-ratio: 1 / 1;
-    object-fit: cover;
+    height: auto;
 }
 
 /***********************************/
@@ -659,7 +658,7 @@ footer {
     .mnav-bar {
         display: flex;
         justify-content: space-between;
-        align-items: center;
+        align-items: flex-start;
         padding: 14px 20px;
         background: var(--gray-2);
         border: 0;
@@ -715,14 +714,16 @@ footer {
 
     .mnav-arrow {
         display: block;
-        font-family: "Geist Mono", monospace;
-        font-weight: 200;
-        font-size: 16px;
+        width: 0.6em;
+        height: 0.6em;
+        margin-left: auto;
+        margin-right: 2px;
+        margin-top: 5px;
     }
 
-    .mnav:not(.is-open) .mnav-arrow {
-        transform: translateX(8px);
-        /* nudge closed-state arrow right — adjust this value */
+    .mnav.is-open .mnav-arrow {
+        mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 28 25.37'%3E%3Cpolygon points='12.64 25.37 17.79 25.37 7.04 14.58 28 14.58 28 10.79 7.05 10.79 17.84 0 12.64 .05 0 12.69 12.64 25.37'/%3E%3C/svg%3E");
+        -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 28 25.37'%3E%3Cpolygon points='12.64 25.37 17.79 25.37 7.04 14.58 28 14.58 28 10.79 7.05 10.79 17.84 0 12.64 .05 0 12.69 12.64 25.37'/%3E%3C/svg%3E");
     }
 
     .mnav-panel {
@@ -884,11 +885,11 @@ footer {
     }
 
     .spacer-l {
-        display: block;
+        display: none;
     }
 
     .spacer-xl {
-        display: block;
+        display: none;
     }
 
     /* CTA button margins */
