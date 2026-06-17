@@ -25,8 +25,6 @@
     function closeMenu() {
         if (mnav) {
             mnav.classList.remove('is-open');
-            const arrow = mnav.querySelector('.mnav-arrow');
-            if (arrow) arrow.textContent = '->';
         }
     }
 
@@ -48,12 +46,8 @@
     }
 
     if (toggle && mnav) {
-        const arrow = mnav.querySelector('.mnav-arrow');
         toggle.addEventListener('click', () => {
             mnav.classList.toggle('is-open');
-            if (arrow) {
-                arrow.textContent = mnav.classList.contains('is-open') ? '<-' : '->';
-            }
         });
     }
 
