@@ -2,9 +2,10 @@
 // To add a new project: add an entry to the PROJECTS array below
 
 const PROJECTS = [
+    { slug: "ghisha", cover: "projects/ghisha/ghisha_visual_identity_01.mp4" },
     { slug: "alojz-strobl", cover: "projects/strobl/A_Strobl_referencia_01.webp" },
-    { slug: "trennial-of-portrait-2024", cover: "projects/trennial-of-portrait/TomasKostrzeva_IV-Triennial-of-Portrait_visual_identity_00.webp" },
     { slug: "dark-pipe-beer", cover: "projects/dark-pipe-beer/Dark_Pipe_Beer_packaging_design_03.webp" },
+    { slug: "trennial-of-portrait-2024", cover: "projects/trennial-of-portrait/TomasKostrzeva_IV-Triennial-of-Portrait_visual_identity_00.webp" },
     { slug: "expandify", cover: "projects/expandify/tomas_kostrzeva_expandify_visual_identity_06.webp" },
     { slug: "medusa-travel", cover: "projects/medusa-travel/medusa_travel_REF_title_figma.webp" },
     { slug: "tedx", cover: "projects/tedx/TEDxBratislava2023_vizualna_identita_00_cover.webp" },
@@ -23,14 +24,14 @@ const PROJECTS = [
     if (!container) return;
 
     const current = container.dataset.current;
-    const others = PROJECTS.filter(p => p.slug !== current);
 
-    // Pick 2 sequential from the list (wrapping around)
+    // Pick 2 sequential from the list (wrapping around), skipping current
     const startIdx = PROJECTS.findIndex(p => p.slug === current);
     const picks = [];
-    let i = (startIdx + 1) % others.length;
+    let i = 1;
     while (picks.length < 2) {
-        picks.push(others[i % others.length]);
+        const candidate = PROJECTS[(startIdx + i) % PROJECTS.length];
+        if (candidate.slug !== current) picks.push(candidate);
         i++;
     }
 
